@@ -3,6 +3,6 @@
   <%= board.name %>
 </h1>
 
-<ul class="flex w-full gap-x-8 overflow-x-auto mt-2 px-4">
+<ul data-controller="sortable" data-sortable-endpoint-value="<%= column_path(id: "__ID__") %>" class="flex w-full gap-x-8 overflow-x-auto mt-2 px-4">
   <%= render board.columns %>
 </ul>

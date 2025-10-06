@@ -1,4 +1,4 @@
 <%# locals: (card:, resource: card.resource) %>
-<li class="px-3 py-2 bg-white rounded-md shadow-xs">
+<li draggable data-sortable-id-value="<%= card.id %>" class="px-3 py-2 bg-white rounded-md shadow-xs">
   <%= tag.p resource.title, class: "text-sm font-normal text-gray-900" %>
 </li>
