@@ -1,3 +1,6 @@
+Message.destroy_all
+Board.destroy_all
+
 messages = [
   { title: "Building Beautiful Rails Applications: A Design-First Approach" },
   { title: "Component-Driven Development in Modern Rails Apps" },
@@ -13,8 +16,16 @@ messages = [
   { title: "UI Engineering Patterns for Scalable Rails Apps" }
 ]
 
-Message.destroy_all
-
+puts "Creating #{Message.count} messages…"
 messages.each { Message.create! it }
 
-puts "Created #{Message.count} messages 🤙"
+puts "Create “Messages” board…"
+Board.create name: "Messages"
+
+puts "Create columns for board…"
+%w[Backlog Read Replied].each { Board::Column.create board: Board.first, name: it }
+
+puts "Randomly assign messages to board's columns…"
+Message.all.map { Board::Card.create! resource: it, column: Board::Column.all.sample }
+
+puts "Done 🤙"
