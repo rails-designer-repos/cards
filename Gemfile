@@ -45,3 +45,5 @@ group :development do
 end
 
 gem "positioning", "~> 0.4.7"
+
+gem "tailwindcss-rails", "~> 4.3"

@@ -1,8 +1,8 @@
 <%# locals: (board:) %>
-<h1>
+<h1 class="mx-4 mt-2 text-lg font-bold text-gray-800">
   <%= board.name %>
 </h1>
 
-<ul>
+<ul class="flex w-full gap-x-8 overflow-x-auto mt-2 px-4">
   <%= render board.columns %>
 </ul>
