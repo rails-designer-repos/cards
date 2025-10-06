@@ -4,7 +4,11 @@
     <%= column.name %>
   </h2>
 
-  <ul data-controller="sortable" data-sortable-endpoint-value="<%= card_path(id: "__ID__") %>" class="flex flex-col gap-y-2 px-4 pb-4">
+  <ul data-controller="sortable" data-sortable-group-name-value="column" data-sortable-list-id-value="<%= column.id %>" data-sortable-endpoint-value="<%= card_path(id: "__ID__") %>" class="flex flex-col gap-y-2 px-4 pb-4 overflow-x-clip">
     <%= render column.cards %>
+
+    <li class="hidden px-3 py-2 bg-gray-200 rounded-md only:block">
+      <p class="text-sm font-normal text-gray-600">No cards here…</p>
+    </li>
   </ul>
 </li>
