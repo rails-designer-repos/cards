@@ -1,14 +1,18 @@
 <%# locals: (column:) %>
-<li draggable data-sortable-id-value="<%= column.id %>"class="w-80 h-[calc(100dvh-4rem)] shrink-0 bg-gray-100 shadow-inner rounded-lg overflow-y-auto">
+<li draggable data-sortable-id-value="<%= column.id %>"class="relative w-80 h-[calc(100dvh-4rem)] shrink-0 bg-gray-100 shadow-inner rounded-lg overflow-y-auto">
   <h2 class="sticky top-0 px-4 py-2 font-medium text-gray-800 bg-gray-100">
     <%= column.name %>
   </h2>
 
-  <ul data-controller="sortable" data-sortable-group-name-value="column" data-sortable-list-id-value="<%= column.id %>" data-sortable-endpoint-value="<%= card_path(id: "__ID__") %>" class="flex flex-col gap-y-2 px-4 pb-4 overflow-x-clip">
+  <ul id="<%= dom_id(column) %>" data-controller="sortable" data-sortable-group-name-value="column" data-sortable-list-id-value="<%= column.id %>" data-sortable-endpoint-value="<%= card_path(id: "__ID__") %>" class="flex flex-col gap-y-2 px-4 pb-4 overflow-x-clip">
     <%= render column.cards %>
 
     <li class="hidden px-3 py-2 bg-gray-200 rounded-md only:block">
       <p class="text-sm font-normal text-gray-600">No cards here…</p>
     </li>
   </ul>
+
+  <div class="sticky bottom-0 px-4 py-2 bg-gray-100/90">
+    <%= button_to "Add new card", cards_path, params: {column_id: column}, class: "block py-1 bg-gray-200 w-full text-sm font-medium text-gray-800 rounded-md hover:bg-gray-300" %>
+  </div>
 </li>
