@@ -3,6 +3,10 @@
   <%= board.name %>
 </h1>
 
-<ul data-controller="sortable" data-sortable-endpoint-value="<%= column_path(id: "__ID__") %>" class="flex w-full gap-x-8 overflow-x-auto mt-2 px-4">
-  <%= render board.columns %>
-</ul>
+<div class="flex overflow-x-auto gap-x-6 mt-2 px-4 [--column-height:calc(100dvh-4rem)]">
+  <ul id="<%= dom_id(board) %>" data-controller="sortable" data-sortable-endpoint-value="<%= column_path(id: "__ID__") %>" class="flex gap-x-8">
+    <%= render board.columns %>
+  </ul>
+
+  <%= button_to "Add new column", columns_path, params: {board_id: board}, form: {class: "shrink-0 [writing-mode:vertical-lr] rotate-180"}, class: "block h-[var(--column-height)] py-1 text-sm font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200" %>
+</div>
