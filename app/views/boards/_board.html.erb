@@ -4,7 +4,7 @@
 </h1>
 
 <div class="flex overflow-x-auto gap-x-6 mt-2 px-4 [--column-height:calc(100dvh-4rem)]">
-  <ul id="<%= dom_id(board) %>" data-controller="sortable" data-sortable-endpoint-value="<%= column_path(id: "__ID__") %>" class="flex gap-x-8">
+  <ul id="<%= dom_id(board) %>" data-controller="sortable" data-sortable-endpoint-value="<%= reposition_columns_path %>" class="flex gap-x-8">
     <%= render board.columns %>
   </ul>
 

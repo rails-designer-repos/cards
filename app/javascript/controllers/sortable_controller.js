@@ -1,9 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import Sortable from "sortablejs"
+import { Sortable, MultiDrag } from "sortablejs"
 import { patch } from "@rails/request.js"
 
+Sortable.mount(new MultiDrag())
+
 export default class extends Controller {
-  static values = { groupName: String, endpoint: String };
+  static values = { groupName: String, endpoint: String, multiDraggable: Boolean };
 
   connect() {
     Sortable.create(this.element,
@@ -14,8 +16,12 @@ export default class extends Controller {
         easing: "cubic-bezier(1, 0, 0, 1)",
 
         ghostClass: "opacity-50",
+        selectedClass: "selected",
 
-        onEnd: this.#updatePosition.bind(this)
+        multiDrag: this.multiDraggableValue,
+        multiDragKey: "shift",
+
+        onEnd: (event) => this.#updatePosition(event)
       }
     )
   }
@@ -23,9 +29,18 @@ export default class extends Controller {
   // private
 
   async #updatePosition(event) {
+    const items = event.items?.length > 0 ? event.items : [event.item]
+    const ids = items.map(item => item.dataset.sortableIdValue)
+
     await patch(
-      this.endpointValue.replace(/__ID__/g, event.item.dataset.sortableIdValue), // the `sortableIdValue` works for both columns and cards
-      { body: JSON.stringify({ new_list_id: event.to.dataset.sortableListIdValue, new_position: event.newIndex + 1 }) }
+      this.endpointValue,
+      {
+        body: JSON.stringify({
+          ids: ids,
+          board_column_id: event.to.dataset.sortableListIdValue,
+          new_position: event.newIndex + 1
+        })
+      }
     )
   }
 }
