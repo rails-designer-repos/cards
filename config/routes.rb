@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :columns, only: %w[create update], concerns: :reposition
-  resources :cards, only: %w[create update], concerns: :reposition
+  resources :cards, only: %w[create update destroy], concerns: :reposition
 
   root to: "pages#show"
 end
